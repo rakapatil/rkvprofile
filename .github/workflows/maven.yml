@@ -1,7 +1,7 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Java CI with Maven
+name: Web Deployment
 
 on:
   push:
@@ -23,3 +23,6 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Deploy to tomcat
+      run: curl -v -u tomcat:admin123 -T /home/runner/work/rkvprofile/rkvprofile/target/vprofile-v2.war 'ec2-13-127-11-34.ap-south-1.compute.amazonaws.com:8080//manager/text/deploy?path=/javamavenAction'
+      

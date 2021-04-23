@@ -7,11 +7,12 @@ on:
   push:
     branches: [ rkcd-jenkins ]
   pull_request:
+    types: [labeled]
     branches: [ rkcd-jenkins ]
 
 jobs:
   build:
-
+    if: github.event.label.name == 'bug'
     runs-on: ubuntu-latest
 
     steps:

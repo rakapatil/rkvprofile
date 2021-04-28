@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    if: github.event.label.name == 'bug'
+    if: github.event.label.name == 'valid'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -25,7 +25,7 @@ jobs:
       run: mvn -B package --file pom.xml
     
   test:
-    if: github.event.label.name == 'valid'
+    if: github.event.label.name == 'bug'
     runs-on: ubuntu-latest
     steps:
     - name: run some bash commands

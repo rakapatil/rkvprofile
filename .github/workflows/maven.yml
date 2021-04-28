@@ -14,7 +14,6 @@ jobs:
   build:
     if: github.event.label.name == 'bug'
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 8
@@ -24,6 +23,21 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Deploy to tomcat
+    
+  test:
+    if: github.event.label.name == 'valid'
+    runs-on: ubuntu-latest
+    steps:
+    - name: run some bash commands
+      run: |
+       echo what is in this directory
+       ls -a
+       
+  Deploy: 
+    if: github.event.label.name == 'invalid'
+    runs-on: ubuntu-latest
+    steps:
+    - name:  deploy to tomcat
       run: curl -v -u tomcat:admin123 -T /home/runner/work/rkvprofile/rkvprofile/target/vprofile-v2.war 'ec2-13-127-11-34.ap-south-1.compute.amazonaws.com:8080//manager/text/deploy?path=/javamavenAction'
+  
       
